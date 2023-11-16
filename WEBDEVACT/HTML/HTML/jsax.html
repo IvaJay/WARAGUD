@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangaVerse</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+<header><h1>MangaVerse</h1></header>
+
+
+<div class="input-container">
+   <label for="offsetInput">OFFSET:</label>
+   <input type="number" id="offsetInput">
+   <label for="limitInput">LIMIT:</label>
+   <input type="number" id="limitInput">
+   <button id="getMangaButton">Get Manga</button>
+</div>
+
+
+<div id="mangaListContainer"></div>
+
+<script>
+   document.getElementById("getMangaButton").addEventListener("click", function () {
+
+      let offset = document.getElementById("offsetInput").value;
+      let limit = document.getElementById("limitInput").value;
+
+      var coverRequest = new XMLHttpRequest();
+      coverRequest.onreadystatechange = function () {
+         if (this.readyState === 4 && this.status === 200) {
+            const coverResponse = JSON.parse(this.responseText);
+            let mangaListContainer = document.getElementById('mangaListContainer');
+            mangaListContainer.innerHTML = '';
+
+            coverResponse.data.forEach((coverInfo) => {
+
+               var mangaRequest = new XMLHttpRequest();
+               mangaRequest.onreadystatechange = function () {
+                  if (this.readyState === 4 && this.status === 200) {
+                     const mangaResponse = JSON.parse(this.responseText);
+                     let description = mangaResponse.data.attributes.description.en;
+                     let title = mangaResponse.data.attributes.title.en;
+
+                     let mangaContainer = document.createElement('div');
+                     mangaContainer.className = "mangaContainer";
+                     mangaContainer.style.cssText = 'display: flex; flex-direction: row; border: 5px solid gray; margin-bottom: 10px;';
+
+                     mangaListContainer.appendChild(mangaContainer)
+
+                     let imageContainer = document.createElement('div');
+                     imageContainer.className = "imageContainer";
+
+                     mangaContainer.appendChild(imageContainer)
+
+                     let textContainer = document.createElement('div');
+                     textContainer.className = "textContainer";
+                     textContainer.style.marginLeft = "20px";
+
+                     mangaContainer.appendChild(textContainer)
+
+                     let mangaImage = document.createElement('img');
+                     let fileName = coverInfo.attributes.fileName;
+                     let mangaId = coverInfo.relationships[0].id;
+                     mangaImage.style.height = "300px";
+                     mangaImage.src = `https://uploads.mangadex.org/covers/${mangaId}/${fileName}`;
+                     mangaImage.alt = fileName;
+
+                     imageContainer.appendChild(mangaImage);
+
+                     let mangaTitle = document.createElement('h3');
+                     mangaTitle.textContent = title;
+                     mangaTitle.style.fontSize = "25px";
+
+                     textContainer.appendChild(mangaTitle);
+
+                     let mangaDescription = document.createElement('p');
+                     mangaDescription.textContent = description;
+                     mangaDescription.style.fontSize = "20px";
+
+                     textContainer.appendChild(mangaDescription);
+
+                  }
+               }
+
+               mangaRequest.open("GET", `https://api.mangadex.org/manga/${coverInfo.relationships[0].id}?includes%5B%5D=manga`);
+               mangaRequest.send();
+
+            });
+         }
+      }
+
+      coverRequest.open("GET", `https://api.mangadex.org/cover?limit=${limit}&offset=${offset}`);
+      coverRequest.send();
+
+
+  })
+
+</script>
+</body>
+</html>

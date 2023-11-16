@@ -1,0 +1,146 @@
+@font-face {
+    font-family: 'BlackOps';
+    src: url('../fonts/BlackOpsOne-Regular.ttf');
+    
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  
+    background-repeat: repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+header {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    background-color: #050505;
+    color: #f1f0f0;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(94, 240, 9, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-family: 'BlackOps', sans-serif;
+    margin: 0;
+}
+
+.center-vertically {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.input-container {
+    text-align: center;
+}
+
+label {
+    margin-right: 10px;
+    font-family: 'BlackOps', sans-serif;
+    border-radius: 5px;
+    background-color: #121213;
+    color: #fff;
+    padding: 5px 10px;
+}
+
+input[type="number"],
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+input[type="number"]:hover,
+input[type="text"]:hover,
+input[type="number"]:focus,
+input[type="text"]:focus {
+    border-color: #121213;
+}
+
+button {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'BlackOps', sans-serif;
+    padding: 10px 20px;
+    background-color: #0c0c0c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #475674;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(66, 133, 244, 0.5);
+}
+
+#mangaListContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.mangaContainer {
+    display: flex;
+    flex-direction: row;
+    border: 5px solid #db1b1b;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 45%;
+    overflow: hidden;
+    transition: border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+
+.mangaContainer:hover {
+    border-color:#db1b1b;
+    transform: scale(1.05);
+}
+
+.imageContainer {
+    width: 40%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.textContainer {
+    width: 60%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+h3 {
+    font-size: 20px;
+    margin: 0;
+}
+
+p {
+    font-size: 16px;
+    margin: 0;
+}
